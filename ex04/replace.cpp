@@ -66,6 +66,13 @@ int	replaceInFile(const std::string &filename, const std::string &s1,
 		std::cerr << "Error: can't open " << filename << std::endl;
 		return (1);
 	}
+	/* Tries to read 1 byte, if read fails this means that we are on a directory*/
+	infile.peek();
+	if (infile.bad())
+	{
+		std::cerr << "Error: can't read " << filename << std::endl;
+		return (1);
+	}
 	buffer << infile.rdbuf();
 	infile.close();
 	outfile.open((filename + ".replace").c_str());
